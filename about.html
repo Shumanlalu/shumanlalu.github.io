@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About NEXCHAT — How It Works</title>
+  <meta name="description" content="Learn how NEXCHAT protects conversations, handles groups and keeps an encrypted local outbox.">
+  <meta name="theme-color" content="#071b15">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="About NEXCHAT">
+  <meta property="og:description" content="A self-hostable Android messenger built around Signal encryption and encrypted local storage.">
+  <meta property="og:image" content="/assets/nexchat-icon.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/assets/nexchat-icon.png" type="image/png">
+  <link rel="canonical" href="/about.html">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/site.config.js"></script>
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="visually-hidden" href="#main">Skip to content</a>
+  <div data-site-header></div>
+
+  <main id="main">
+    <section class="section-tight">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">About NEXCHAT</p>
+          <h1>Encryption first. Metadata honest.</h1>
+          <p class="lead">NEXCHAT is a self-hostable Android messaging application. Message content is encrypted with the Signal protocol before it leaves a device, and the server relays opaque envelopes rather than readable conversations.</p>
+        </div>
+        <div class="grid grid-2">
+          <article class="card reveal">
+            <div class="card-icon">⌁</div>
+            <h3>What the server can see</h3>
+            <p>The relay necessarily handles routing metadata such as sender and recipient device identifiers, delivery timing and group identifiers. It does not receive message plaintext.</p>
+            <p class="small">Operators can still delay, withhold or observe metadata. Safety numbers should be compared over a separate trusted channel.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon">◇</div>
+            <h3>What stays on the device</h3>
+            <p>Private keys, the SQLCipher database passphrase and session tokens are protected using Android Keystore material. Signing out wipes the local encrypted database and device identity.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="container"><div class="ad-slot" data-ad-slot="content-bottom"></div></div>
+
+    <section class="section-tight">
+      <div class="container split">
+        <div class="reveal">
+          <p class="eyebrow">Design principles</p>
+          <h2>No custom cryptography.</h2>
+          <p>NEXCHAT reuses the Signal protocol for one-to-one and group content. It does not invent its own cipher. Attachments and call signaling also travel inside encrypted content where applicable.</p>
+          <p>Remote configuration, announcements and account restrictions are controlled by the private operator panel and enforced by the backend.</p>
+        </div>
+        <div class="feature-list reveal">
+          <div class="feature-row"><span class="mark">01</span><span><b>Online messaging</b><p>Authenticated WebSocket with encrypted envelope relay and long-poll fallback.</p></span></div>
+          <div class="feature-row"><span class="mark">02</span><span><b>Private groups</b><p>Pairwise encrypted fan-out to each member device, with membership checks on the server.</p></span></div>
+          <div class="feature-row"><span class="mark">03</span><span><b>Nearby relay</b><p>Bluetooth Classic transport with encrypted routing headers. Real-device verification is still required.</p></span></div>
+          <div class="feature-row"><span class="mark">04</span><span><b>Local resilience</b><p>Durable encrypted outbox, receipts, deduplication and reconnect synchronisation.</p></span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-tight">
+      <div class="container notice gold reveal">
+        This website is promotional and informational only. It does not host accounts, expose the private Admin Panel or provide a public sign-up service.
+      </div>
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+</body>
+</html>

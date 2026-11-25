@@ -1,0 +1,4 @@
+# The repository ignores *.apk globally to avoid accidental large commits.
+# The three official release APKs in this folder are intentionally part of the
+# public website deployment and are therefore re-included here.
+!downloads/*.apk

@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NEXCHAT Features — Encrypted Messaging</title>
+  <meta name="description" content="Explore NEXCHAT's implemented features: Signal encryption, groups, offline queue, identity verification, attachments, calls and nearby relay.">
+  <meta name="theme-color" content="#071b15">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="NEXCHAT Features">
+  <meta property="og:description" content="Implemented NEXCHAT capabilities and their current verification status.">
+  <meta property="og:image" content="/assets/nexchat-icon.png">
+  <meta name="twitter:card" content="summary">
+  <link rel="icon" href="/assets/nexchat-icon.png" type="image/png">
+  <link rel="canonical" href="/features.html">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/site.config.js"></script>
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <a class="visually-hidden" href="#main">Skip to content</a>
+  <div data-site-header></div>
+
+  <main id="main">
+    <section class="section-tight">
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">App features</p>
+          <h1>Capabilities, stated accurately.</h1>
+          <p class="lead">These are features present in the NEXCHAT codebase. Where a capability still needs physical-device verification, this page says so explicitly.</p>
+        </div>
+        <div class="grid grid-3">
+          <article class="card reveal"><div class="card-icon">⌁</div><h3>Signal protocol</h3><p>X3DH/PQXDH sessions and the Double Ratchet. No custom cipher.</p><span class="pill">Implemented</span></article>
+          <article class="card reveal"><div class="card-icon">◇</div><h3>Private groups</h3><p>Pairwise encrypted delivery to every member device and server-side membership checks.</p><span class="pill">Implemented</span></article>
+          <article class="card reveal"><div class="card-icon">↻</div><h3>Durable outbox</h3><p>Encrypted local queue, exponential retry, deduplication and reconnect sync.</p><span class="pill">Implemented</span></article>
+          <article class="card reveal"><div class="card-icon">◎</div><h3>Safety numbers</h3><p>Per-device numeric fingerprints, QR display/copy and identity-change alerts.</p><span class="pill">Implemented</span></article>
+          <article class="card reveal"><div class="card-icon">▤</div><h3>Encrypted files</h3><p>Chunked attachments with validated manifest, conversation binding and size bounds.</p><span class="pill">Implemented</span></article>
+          <article class="card reveal"><div class="card-icon">◉</div><h3>Voice and video calls</h3><p>WebRTC call signaling inside encrypted content. TURN is available when configured by the operator.</p><span class="pill">Implemented</span></article>
+          <article class="card reveal"><div class="card-icon">≋</div><h3>Nearby Bluetooth relay</h3><p>Bluetooth Classic RFCOMM with encrypted routing headers and bounded flooding.</p><span class="pill gold">Real-device testing pending</span></article>
+          <article class="card reveal"><div class="card-icon">⚿</div><h3>Encrypted local storage</h3><p>SQLCipher database with the passphrase wrapped by Android Keystore AES-GCM.</p><span class="pill">Implemented</span></article>
+          <article class="card reveal"><div class="card-icon">⚑</div><h3>Operator controls</h3><p>Private admin panel for accounts, sessions, remote configuration and announcements.</p><span class="pill">Implemented</span></article>
+        </div>
+      </div>
+    </section>
+
+    <div class="container split">
+      <section class="reveal">
+        <h2>Current limitations</h2>
+        <div class="table-wrap" style="margin-top:20px">
+          <table>
+            <thead><tr><th>Area</th><th>Status</th></tr></thead>
+            <tbody>
+              <tr><td>Push notifications</td><td>Not included. A foreground service keeps the connection alive.</td></tr>
+              <tr><td>Public sign-up</td><td>Not offered. Accounts are provisioned by the operator.</td></tr>
+              <tr><td>Nearby relay</td><td>Automated checks pass; two-phone Airplane Mode and three-device relay tests are still required.</td></tr>
+              <tr><td>TURN calling</td><td>Only active when the operator configures a TURN shared secret.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+      <div class="ad-slot" data-ad-slot="features-side"></div>
+    </div>
+
+    <section class="section-tight">
+      <div class="container notice reveal">
+        <b>Installer note:</b> Android will ask you to allow installation from this source. NEXCHAT never installs silently. Uninstalling the app deletes its local encrypted messages, so upgrade normally instead.
+      </div>
+    </section>
+  </main>
+
+  <div data-site-footer></div>
+</body>
+</html>
