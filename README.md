@@ -68,40 +68,39 @@ Open <http://127.0.0.1:4173>. Check the desktop layout, then use browser develop
 
 If Python is unavailable, any static file server can serve this folder. Opening `index.html` directly as a `file://` page is not recommended because link paths are absolute from the site root.
 
-## 3. Deploy to the existing Vercel account
+## 3. Live deployment
 
-This website should be a separate Vercel project from the existing NEXCHAT backend so backend routes and the private Admin Panel remain untouched.
+The site is **published** at <https://shumanlalu.github.io/> using GitHub Pages.
 
-1. Commit the `website/` folder to your Git repository, or push this repository to your Git host.
-2. In Vercel, choose **Add New → Project**.
-3. Select the repository.
-4. Set **Root Directory** to `website`. This is important: it tells Vercel to deploy only the static site.
-5. Framework Preset: **Other**.
-6. Leave the build command empty. There is nothing to compile.
-7. Output directory: `.` (the website folder root).
-8. Click **Deploy**.
-9. After deployment, open the generated `*.vercel.app` URL and test every page and APK download.
+- Repository: `Shumanlalu/shumanlalu.github.io`
+- Branch: `main`, published from the repository root
+- This is a separate public repository, so the messaging backend, Neon database and private Admin Panel are untouched.
 
-A manual drag-and-drop deployment of the `website/` folder also works, but Git-based deployment is easier to update.
+To update the live site, copy the contents of this `website/` folder into that repository's root and commit/push to `main`. GitHub Pages rebuilds automatically in about a minute. There is no build command and no server-side code.
 
-This workspace did not have Vercel CLI access, so the site was prepared but **not deployed**. No deployment is claimed here.
+Verified on the live site: every page returns HTTP 200, and all three APK downloads match the SHA-256 values in `downloads/SHA256SUMS.txt`.
 
-## 4. Connect a custom domain
+### Optional: Vercel instead
 
-Beginner steps:
+If you later prefer Vercel, create a **separate** project from the NEXCHAT backend:
+
+1. Add a new Vercel project pointing at a repository that contains this website.
+2. Set **Root Directory** to `website` (or point the repository root at these files).
+3. Framework Preset: **Other**; leave the build command empty; output directory `.`.
+4. Deploy and set `siteUrl`, `sitemap.xml` and `robots.txt` to the new URL.
+
+## 4. Connect a custom domain (optional)
+
+The site currently uses the free `shumanlalu.github.io` URL. To use your own domain:
 
 1. Buy a domain from any reputable registrar, for example `yourdomain.com`.
-2. In Vercel, open the website project → **Settings** → **Domains**.
-3. Add the exact domain, for example `nexchat.example.com` or `yourdomain.com`.
-4. Vercel will show DNS records. At your registrar, add the records Vercel displays. Common examples are:
-   - A record: `76.76.21.21` for a root domain, or
-   - CNAME record: `cname.vercel-dns.com` for `www` or another subdomain.
-5. Wait for DNS to propagate. Vercel normally issues HTTPS/SSL automatically.
-6. Set `siteUrl` in `assets/site.config.js` to the final `https://` domain.
-7. Replace the placeholder domain in `sitemap.xml` and `robots.txt`.
-8. Redeploy the website. This is a small content update, not a rebuild of the Android app or backend.
+2. In the `shumanlalu.github.io` repository, open **Settings → Pages → Custom domain** and enter the exact domain.
+3. At your registrar, add the DNS records GitHub shows (A records for a root domain or a CNAME for `www`). GitHub issues HTTPS automatically.
+4. Set `siteUrl` in `assets/site.config.js` to `https://yourdomain.com`.
+5. Replace `https://shumanlalu.github.io` in `sitemap.xml` and `robots.txt`.
+6. Commit and push those three files. This is a content update only; the Android app and backend do not change.
 
-DNS can take a few hours to update in some cases. You can change the domain later by updating Vercel Domains and the three config files, then redeploying.
+If you switch to Vercel instead, add the domain under that project's **Settings → Domains** and follow the same three-file update. DNS can take a few hours to propagate.
 
 ## 5. Advertisements and external ad networks
 
@@ -169,19 +168,19 @@ This website does not connect to Neon or any database. It does not call private 
 
 ## 7. Verification checklist before publishing
 
-- Replace the `siteUrl` placeholder in `site.config.js` and the domain in `sitemap.xml` and `robots.txt` after the domain is connected.
+- Confirm `siteUrl` in `site.config.js` and the domains in `sitemap.xml` and `robots.txt` match the live URL.
 - Confirm Contact and Advertise links open a message addressed to `shumanprdhn@gmail.com`.
 - Confirm the download page shows the expected version, date, size and checksums.
 - Confirm every APK link returns the correct file and starts a download.
 - If ads are enabled, confirm each slot shows the “Advertisement” label and the network creative renders on desktop and phone widths.
 - Confirm all navigation links, legal pages and ad enquiries work on a phone screen.
 - Confirm no private API, credential, `.env` file, keystore or backend source is inside the `website/` folder.
-- Confirm Vercel Root Directory is `website`, not the repository root.
+- Confirm changes are pushed to the root of the `shumanlalu.github.io` repository and GitHub Pages finishes building.
 
 ## Known limitations
 
-- Contact email is configured to `shumanprdhn@gmail.com`; the site domain is still a placeholder until deployment.
+- Contact email is configured to `shumanprdhn@gmail.com` and the live site uses `https://shumanlalu.github.io/`.
 - No ad network is enabled by default. Real network snippets can be added to the config at any time.
-- Deployment was not performed from this workspace.
+- No custom domain is connected yet; the free `shumanlalu.github.io` URL is the public address.
 - The APKs are the signed 1.1.0 release files rebuilt from the current Android source; older 1.0.9 files remain in `downloads/` as an archive only.
 - Physical-device installation and app feature verification remain separate operator/release tasks.
