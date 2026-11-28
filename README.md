@@ -166,7 +166,18 @@ A simple direct-sponsor creative without a network script:
 
 This website does not connect to Neon or any database. It does not call private backend APIs and does not contain credentials. NEXCHAT accounts remain provisioned through the existing operator-controlled system. The messaging backend and Admin Panel stay on their existing deployment.
 
-## 7. Verification checklist before publishing
+## 7. Security notes
+
+A security scan of the static site reported missing response headers, no rate limiting and a visible `Server: GitHub.com` header.
+
+- **Headers:** GitHub Pages does not allow custom HTTP response headers. `vercel.json` only has an effect if the site is deployed to Vercel. Every page therefore sets a `<meta name="referrer">` policy and a permissive Content-Security-Policy in the page markup. These are enforced by browsers and reduce referrer leakage, mixed content and cross-origin injection, but a header-based scanner will still report the headers as absent.
+- **HSTS, `X-Frame-Options`, `X-Content-Type-Options`:** these cannot be set with HTML meta tags. Moving to a host that supports custom headers (Vercel, Cloudflare Pages with a custom domain) would be required to clear those checks.
+- **Rate limiting:** this website is read-only static files. It has no login, password reset, form handler, API or database, so brute-force protection does not apply here. Rate limiting belongs on the separate messaging backend and Admin Panel.
+- **`Server: GitHub.com`:** this identifies the free hosting provider, not a vulnerable software version. It cannot be changed on GitHub Pages.
+
+If a future ad-network snippet needs `eval()`, the CSP in each HTML page may need `'unsafe-eval'` added. Test any snippet before enabling it.
+
+## 8. Verification checklist before publishing
 
 - Confirm `siteUrl` in `site.config.js` and the domains in `sitemap.xml` and `robots.txt` match the live URL.
 - Confirm Contact and Advertise links open a message addressed to `shumanprdhn@gmail.com`.
